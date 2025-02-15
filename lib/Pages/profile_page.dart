@@ -75,7 +75,7 @@ class ProfileCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.work, size: 16, color: Colors.grey),
+                      const Icon(Icons.badge, size: 16, color: Colors.grey),
                       const SizedBox(width: 5),
                       const Text("123220023", style: TextStyle(color: Colors.grey)),
                     ],
