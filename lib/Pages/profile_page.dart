@@ -5,19 +5,43 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void logout() {
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Profile'),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: logout,
+              child: const Text(
+                'logout',
+                style: TextStyle(fontSize: 11),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ProfileCard(),
-              ProfileCard(),
-              ProfileCard(),
+              ProfileCard(
+                name: "Nofan Zohrial",
+                nim: "123220023",
+                imagePath: "assets/images/1105633.jpg",
+              ),
+              ProfileCard(
+                name: "Farid Radityo Suharman",
+                nim: "123220094",
+                imagePath: "assets/images/1729260477113.jpg",
+              ),
             ],
           ),
         ),
@@ -27,12 +51,21 @@ class ProfilePage extends StatelessWidget {
 }
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+  final String name;
+  final String nim;
+  final String imagePath;
+
+  const ProfileCard({
+    super.key,
+    required this.name,
+    required this.nim,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16), 
+      margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
@@ -42,44 +75,28 @@ class ProfileCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+            ClipOval(
+              clipBehavior: Clip.antiAlias,
               child: Image.asset(
-                'assets/images/1105633.jpg',
-                width: double.infinity,
-                height: 200,
+                imagePath,
+                width: 150,
+                height: 150,
                 fit: BoxFit.cover,
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Nama
-                  const Text(
-                    "John",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(Icons.person, size: 16, color: Colors.grey),
-                      const SizedBox(width: 5),
-                      const Text("Nofan Zohrial", style: TextStyle(color: Colors.grey)),
-                    ],
-                  ),
+                  Text(name,
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 20)),
                   const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(Icons.badge, size: 16, color: Colors.grey),
-                      const SizedBox(width: 5),
-                      const Text("123220023", style: TextStyle(color: Colors.grey)),
-                    ],
-                  ),
+                  Text(nim,
+                      style:
+                          const TextStyle(color: Colors.black, fontSize: 20)),
                   const SizedBox(height: 10),
                 ],
               ),

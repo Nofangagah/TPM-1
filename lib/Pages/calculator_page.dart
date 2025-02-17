@@ -70,12 +70,26 @@ class _CalculatorPageState extends State<CalculatorPage> {
     );
   }
 
+  void logout() {
+  Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Calculator'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              
+              onPressed: logout,
+               child: Text("Logout", style: TextStyle(fontSize: 11),)),
+          )
+        ],
       ),
       body: Column(
         children: [

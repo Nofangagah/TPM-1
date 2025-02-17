@@ -29,15 +29,26 @@ class _OddOrEvenState extends State<OddOrEven> {
   void clearRsult() {
     setState(() {
       result = "";
+      _controller.clear();
     });
+  }
+
+  void logout() {
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Odd or Even'),
         centerTitle: true,
+        actions: [
+          Padding(padding: const EdgeInsets.all(8.0),
+          child: ElevatedButton(onPressed: logout, child: Text("logout", style: TextStyle(fontSize: 11),)),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -62,13 +73,19 @@ class _OddOrEvenState extends State<OddOrEven> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
                   onPressed: checkNumber,
-                  child: Text("check"),
+                  child: Text("check", style: TextStyle(color: Colors.white)),
                 ),
-                ElevatedButton(onPressed: clearRsult, child: Text("Clear")),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: clearRsult, child: Text("Clear", style: TextStyle(color: Colors.white),)),
               ],
             ),
-            
             SizedBox(height: 16),
             Text(
               result,
@@ -76,7 +93,6 @@ class _OddOrEvenState extends State<OddOrEven> {
             ),
           ],
         ),
-        
       ),
     );
   }

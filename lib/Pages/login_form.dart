@@ -14,36 +14,35 @@ class _LoginPageState extends State<LoginPage> {
 
   final List<Map<String, String>> users = [
     {
-      "username": "Nofan Zohrial",
-      "password": "123220023",
+      "username": "nofan".toLowerCase().trim(),
+      "password": "123220023".trim(),
     },
     {
-      "username": "Nofan Zohrial",
-      "password": "123220023",
+      "username": "farid".toLowerCase().trim(),
+      "password": "123220094".trim(),
     },
-    {
-      "username": "Nofan Zohrial",
-      "password": "123220023",
-    },
+    
   ];
 
-  void login () {
-    String username = usernameCotroller.text;
-    String password = passwordController.text;
+  void login() {
+  String username = usernameCotroller.text.toLowerCase().trim();
+  String password = passwordController.text.toLowerCase().trim();
 
-    bool isValidUser = users.any(
-        (user) => user['username'] == username && user['password'] == password);
+  bool isValidUser = users.any(
+    (user) =>
+        user['username']!.toLowerCase().trim() == username && user['password']!.trim() == password,
+  );
 
-    if (isValidUser) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Login Berhasil")));
-
-      Navigator.pushNamed(context, '/home');
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Login Gagal")));
-    }
+  if (isValidUser) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Login Berhasil")));
+    Navigator.pushNamed(context, '/home');
+  } else {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Login Gagal")));
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
