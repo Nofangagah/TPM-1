@@ -8,22 +8,17 @@ class ProfilePage extends StatelessWidget {
     void logout() {
       Navigator.pop(context);
     }
-
+    final String username = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text('Profile'),
         centerTitle: true,
+        leading: Text("Hello, $username"),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: logout,
-              child: const Text(
-                'logout',
-                style: TextStyle(fontSize: 11),
-              ),
-            ),
+            child: IconButton(onPressed: logout, icon: Icon(Icons.logout)),
           ),
         ],
       ),

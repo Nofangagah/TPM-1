@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
-
 class CalculatorPage extends StatefulWidget {
   const CalculatorPage({super.key});
 
@@ -12,7 +11,6 @@ class CalculatorPage extends StatefulWidget {
 class _CalculatorPageState extends State<CalculatorPage> {
   String input = "";
   String output = "0";
-  
 
   void onButtonPressed(String value) {
     setState(() {
@@ -23,7 +21,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         try {
           String result = evaluateExpression(input);
           output = result;
-          input = result; 
+          input = result;
         } catch (e) {
           output = "Error";
         }
@@ -52,43 +50,54 @@ class _CalculatorPageState extends State<CalculatorPage> {
   }
 
   Widget _buildButton(String text) {
+    bool isOperator = ["C", "=", "+", "-"].contains(text);
     return Expanded(
-      child: ElevatedButton(
-        onPressed: () => onButtonPressed(text),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.all(24),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () => onButtonPressed(text),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(24),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            backgroundColor: isOperator ? Colors.orange : Colors.grey[300],
           ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+          child: Text(
+            text,
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: isOperator ? Colors.white : Colors.black),
+          ),
         ),
       ),
     );
   }
 
   void logout() {
-  Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    final String username = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         title: Text('Calculator'),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              "Hello, $username",
               
-              onPressed: logout,
-               child: Text("Logout", style: TextStyle(fontSize: 11),)),
-          )
+            ),
+          ),
+        ),
+        actions: [
+          IconButton(onPressed: logout, icon: Icon(Icons.logout)),
         ],
       ),
       body: Column(
@@ -108,34 +117,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
           ),
           Column(
             children: [
-              Row(children: [
-                _buildButton("7"),
-                _buildButton("8"),
-                _buildButton("9"),
-                _buildButton("/")
-              ]),
-              Row(children: [
-                _buildButton("4"),
-                _buildButton("5"),
-                _buildButton("6"),
-                _buildButton("*")
-              ]),
-              Row(children: [
-                _buildButton("1"),
-                _buildButton("2"),
-                _buildButton("3"),
-                _buildButton("-")
-              ]),
-              Row(children: [
-                _buildButton("C"),
-                _buildButton("0"),
-                _buildButton("="),
-                _buildButton("+")
-              ]),
+              Row(children: [_buildButton("7"), _buildButton("8"), _buildButton("9")]),
+              Row(children: [_buildButton("4"), _buildButton("5"), _buildButton("6")]),
+              Row(children: [_buildButton("1"), _buildButton("2"), _buildButton("3")]),
+              Row(children: [_buildButton("C"), _buildButton("0"), _buildButton("=")]),
+              Row(children: [_buildButton("+"), _buildButton("-")]),
             ],
           )
         ],
-        
       ),
     );
   }

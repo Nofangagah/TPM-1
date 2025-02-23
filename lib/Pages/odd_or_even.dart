@@ -12,14 +12,14 @@ class _OddOrEvenState extends State<OddOrEven> {
   String result = "";
 
   String isOddOrEven(int number) {
-    return number % 2 == 0 ? "Genap" : "Ganjil";
+    return number % 2 == 0 ? "Even" : "Odd";
   }
 
   void checkNumber() {
     setState(() {
       int? number = int.tryParse(_controller.text);
       if (number != null) {
-        result = "Angka $number adalah ${isOddOrEven(number)}";
+        result = "Number $number is ${isOddOrEven(number)}";
       } else {
         result = "enter a valid number!";
       }
@@ -39,14 +39,16 @@ class _OddOrEvenState extends State<OddOrEven> {
 
   @override
   Widget build(BuildContext context) {
+    final String username = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Odd or Even'),
         centerTitle: true,
+        leading: Text("Hello, $username"),
         actions: [
           Padding(padding: const EdgeInsets.all(8.0),
-          child: ElevatedButton(onPressed: logout, child: Text("logout", style: TextStyle(fontSize: 11),)),
+          child: IconButton(onPressed: logout, icon: Icon(Icons.logout)),
           )
         ],
       ),
@@ -56,7 +58,7 @@ class _OddOrEvenState extends State<OddOrEven> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Masukkan angka:',
+              'Input a Number:',
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 8),

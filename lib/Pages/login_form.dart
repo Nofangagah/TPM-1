@@ -21,6 +21,10 @@ class _LoginPageState extends State<LoginPage> {
       "username": "farid".toLowerCase().trim(),
       "password": "123220094".trim(),
     },
+    {
+      "username": "fikri".toLowerCase().trim(),
+      "password": "123220075".trim(),
+    }
     
   ];
 
@@ -36,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   if (isValidUser) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Login Berhasil")));
-    Navigator.pushNamed(context, '/home');
+    Navigator.pushNamed(context, '/home', arguments: username);
   } else {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text("Login Gagal")));
